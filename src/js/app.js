@@ -57,6 +57,8 @@ function aplicarFiltros() {
 
   const total = filtrados.length;
 
+  actualizarEstadisticas(filtrados);
+
   if (limitar) {
     filtrados = filtrados.slice(0, 10);
   }
@@ -64,21 +66,57 @@ function aplicarFiltros() {
   pintarResultados(filtrados, total);
 }
 
+function actualizarEstadisticas(lista) {
+  const vivos = lista.filter(function (personaje) {
+    return personaje.status.toLowerCase() === "alive";
+  }).length;
+
+  const muertos = lista.filter(function (personaje) {
+    return personaje.status.toLowerCase() === "dead";
+  }).length;
+
+  const desconocidos = lista.filter(function (personaje) {
+    return personaje.status.toLowerCase() === "unknown";
+  }).length;
+
+  document.querySelector("#resumen-estados").textContent =
+    vivos + " vivos · " +
+    muertos + " muertos · " +
+    desconocidos + " desconocidos";
+
+  document.querySelector("#aviso-muertos").hidden = muertos === 0;
+}
+
 function pintarResultados(lista, total) {
   const contenedor = document.querySelector("#resultados");
   document.querySelector("#contador").textContent = total + " personajes encontrados · Mostrando " + lista.length;
 
-  contenedor.innerHTML = lista
-    .map(function (personaje) {
-      return (
-        '<article class="personaje-card">' +
-        '<img src="' + personaje.image + '" alt="' + personaje.name + '" />' +
-        "<h3>" + personaje.name + "</h3>" +
-        "<p>" + personaje.status + " · " + personaje.species + "</p>" +
-        "</article>"
-      );
-    })
-    .join("");
+  contenedor.innerHTML = lista.map(function (personaje) {
+      const estado = personaje.status.toLowerCase();
+      return `
+        <article class="personaje-card">
+          <img
+            src="${personaje.image}"
+            alt="${personaje.name}"
+            loading="lazy"
+          />
+
+          <div class="personaje-info">
+            <h3>${personaje.name}</h3>
+
+            <div class="personaje-detalles">
+              <span class="estado estado-${estado}">
+                ${personaje.status}
+              </span>
+
+              <span class="especie">
+                ${personaje.species}
+              </span>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join("");
 }
 
 document.querySelector("#filtro-nombre").addEventListener("input", aplicarFiltros);

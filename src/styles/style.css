@@ -71,6 +71,29 @@ body {
 #contador {
   margin: 0 0 16px;
   color: #9aa6bf;
+  margin-bottom: 8px;
+}
+
+.estadisticas {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 16px;
+  color: #9aa6bf;
+}
+
+.estadisticas p {
+  margin: 0;
+}
+
+.aviso-muertos {
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #3b2634;
+  color: #ffabab;
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 
@@ -81,11 +104,70 @@ body {
 }
 
 .personaje-card {
-  min-width: 0;
-  background: #172033;
-  border-radius: 12px;
+  background: #141a28;
   border: 1px solid #2b354c;
+  border-radius: 20px;
   overflow: hidden;
+}
+
+.personaje-info {
+  padding: 16px;
+}
+
+.personaje-info h3 {
+  margin: 0 0 10px;
+  color: #f4f6fb;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.especie {
+  color: #9aa6bf;
+  font-size: 0.95rem;
+}
+
+/* Etiquetas de estado */
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.estado::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.estado-alive {
+  background: #253a30;
+  color: #a9e8c5;
+}
+
+.estado-dead {
+  background: #3b2634;
+  color: #ffabab;
+}
+
+.estado-unknown {
+  background: #373624;
+  color: #f0df91;
+}
+
+.personaje-detalles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
 }
 
 .personaje-card img {
